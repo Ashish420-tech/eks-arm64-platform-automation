@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: karpenter-lab
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: arm64-test
+  namespace: karpenter-lab
+spec:
+  nodeSelector:
+    kubernetes.io/arch: arm64
+  containers:
+    - name: test
+      image: public.ecr.aws/docker/library/busybox:1.36
+      command: ["sh", "-c", "uname -m && sleep 3600"]
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: amd64-test
+  namespace: karpenter-lab
+spec:
+  nodeSelector:
+    kubernetes.io/arch: amd64
+  containers:
+    - name: test
+      image: public.ecr.aws/docker/library/busybox:1.36
+      command: ["sh", "-c", "uname -m && sleep 3600"]
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi

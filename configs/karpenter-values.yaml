@@ -1,0 +1,25 @@
+replicas: 1
+
+serviceAccount:
+  create: false
+  name: karpenter
+
+settings:
+  clusterName: eks-arm64-platform
+
+# Configure interruptionQueue after creating the SQS queue
+# and EventBridge rules for Karpenter interruption handling.
+
+controller:
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 768Mi
+
+nodeSelector:
+  kubernetes.io/os: linux
+  kubernetes.io/arch: arm64
+  workload-tier: bootstrap

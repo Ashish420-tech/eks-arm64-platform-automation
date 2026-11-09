@@ -1,0 +1,9 @@
+aws_region          = "ap-south-1"
+cluster_name        = "eks-arm64-platform"
+kubernetes_version  = "1.36"
+existing_vpc_id     = "vpc-0f1f4651b2947cf30"
+
+# Replace with your actual public IPv4 CIDR.
+public_access_cidrs = ["REPLACE_WITH_YOUR_PUBLIC_IP/32"]
+
+bootstrap_instance_type = "t4g.small"
