@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: karpenter-arm64-scale-test
+  namespace: karpenter-lab
+spec:
+  nodeSelector:
+    karpenter.sh/nodepool: arm64-pool
+    kubernetes.io/arch: arm64
+  terminationGracePeriodSeconds: 5
+  containers:
+    - name: test
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          uname -m
+          sleep 1800
+      resources:
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
