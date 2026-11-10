@@ -2,13 +2,18 @@ apiVersion: karpenter.sh/v1
 kind: NodePool
 metadata:
   name: arm64-pool
+
 spec:
   template:
     metadata:
       labels:
         architecture: arm64
         workload-architecture: arm64
+
     spec:
+      # Disable automatic node expiration
+      expireAfter: Never
+
       nodeClassRef:
         group: karpenter.k8s.aws
         kind: EC2NodeClass
@@ -32,8 +37,12 @@ spec:
           values: ["on-demand"]
 
   limits:
-    cpu: "2"
+    cpu: "4"
 
   disruption:
     consolidationPolicy: WhenEmpty
     consolidateAfter: 2m
+
+    # Block voluntary Karpenter node disruptions
+    budgets:
+      - nodes: "0"
