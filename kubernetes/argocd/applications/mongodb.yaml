@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongodb
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Ashish420-tech/eks-arm64-platform-automation.git
+    targetRevision: main
+    path: kubernetes/mongodb/chart
+    helm:
+      releaseName: mongodb
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mongodb
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

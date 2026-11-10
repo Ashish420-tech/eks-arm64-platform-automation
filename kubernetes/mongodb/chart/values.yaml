@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: mongo
+  tag: "8.0"
+  pullPolicy: IfNotPresent
+
+mongodb:
+  database: labdb
+  existingSecret: mongodb-auth
+
+service:
+  port: 27017
+
+persistence:
+  storageClass: mongodb-gp3
+  size: 10Gi
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    memory: 1Gi
+
+nodeSelector:
+  kubernetes.io/arch: arm64
+  karpenter.sh/nodepool: arm64-pool
