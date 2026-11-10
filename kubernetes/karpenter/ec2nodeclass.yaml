@@ -5,18 +5,18 @@ metadata:
 spec:
   role: KarpenterNodeRole-eks-arm64-platform
 
-  amiSelectorTerms:
+  amiSelectorTerms: #Ami image id 
     - alias: al2023@latest
 
-  subnetSelectorTerms:
+  subnetSelectorTerms:  # subnet id mentioned
     - tags:
         karpenter.sh/discovery: eks-arm64-platform
 
-  securityGroupSelectorTerms:
+  securityGroupSelectorTerms:  # security group id mentioned
     - tags:
         karpenter.sh/discovery: eks-arm64-platform
 
-  blockDeviceMappings:
+  blockDeviceMappings:   # block device mapping for the node
     - deviceName: /dev/xvda
       ebs:
         volumeSize: 20Gi
@@ -24,13 +24,13 @@ spec:
         encrypted: true
         deleteOnTermination: true
 
-  metadataOptions:
+  metadataOptions:   #configure the instance  details
     httpEndpoint: enabled
     httpProtocolIPv6: disabled
     httpPutResponseHopLimit: 2
     httpTokens: required
 
-  detailedMonitoring: false
+  detailedMonitoring: false # get the data from cloudwatch for the node monitoring
 
   tags:
     Project: eks-arm64-platform-automation

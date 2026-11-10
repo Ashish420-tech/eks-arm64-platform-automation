@@ -25,3 +25,17 @@ output "bootstrap_node_group" {
 output "karpenter_node_role_arn" {
   value = data.aws_iam_role.karpenter_node.arn
 }
+
+# ==========================================================
+# EBS CSI OUTPUTS
+# ==========================================================
+
+output "ebs_csi_role_arn" {
+  description = "IAM role used by the EBS CSI controller"
+  value       = aws_iam_role.ebs_csi.arn
+}
+
+output "ebs_csi_addon_status" {
+  description = "EBS CSI add-on status"
+  value       = aws_eks_addon.ebs_csi.status
+}

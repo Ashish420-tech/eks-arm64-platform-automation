@@ -2,12 +2,14 @@ apiVersion: karpenter.sh/v1
 kind: NodePool
 metadata:
   name: amd64-pool
+
 spec:
   template:
     metadata:
       labels:
         architecture: amd64
         workload-architecture: amd64
+
     spec:
       nodeClassRef:
         group: karpenter.k8s.aws
@@ -32,8 +34,10 @@ spec:
           values: ["on-demand"]
 
   limits:
-    cpu: "2"
+    cpu: "4"
 
   disruption:
     consolidationPolicy: WhenEmpty
     consolidateAfter: 2m
+    budgets:
+      - nodes: "10%"
